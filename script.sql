@@ -76,5 +76,57 @@ $$;
 -- ----------------------------------------------------------------
 -- 5. Limpeza de valores NULL
 --escreva a sua solução aqui
+DO $$
+DECLARE
+  cur_nulls CURSOR FOR
+    SELECT * FROM estudantes
+     WHERE studentid IS NULL
+        OR mother_edu IS NULL
+        OR father_edu IS NULL
+        OR grade IS NULL
+        OR salary IS NULL
+        OR prep_study IS NULL;
+  estudante estudantes%ROWTYPE;
+  cur_restantes CURSOR FOR
+    SELECT * FROM estudantes ORDER BY cod_estudantes DESC;
+BEGIN
+  OPEN cur_nulls;
+  LOOP
+    FETCH cur_nulls INTO estudante;
+    EXIT WHEN NOT FOUND;
+    RAISE NOTICE 'removendo os nulls: ID=%, studentid=%, mother_edu=%, father_edu=%, grade=%, salary=%, prep_study=%',
+      estudante.cod_estudantes,
+      estudante.studentid,
+      estudante.mother_edu,
+      estudante.father_edu,
+      estudante.grade,
+      estudante.salary,
+      estudante.prep_study;
+  END LOOP;
+  CLOSE cur_nulls;
 
+  DELETE FROM estudantes
+    WHERE studentid IS NULL
+       OR mother_edu IS NULL
+       OR father_edu IS NULL
+       OR grade IS NULL
+       OR salary IS NULL
+       OR prep_study IS NULL;
+
+  OPEN cur_restantes;
+  LOOP
+    FETCH cur_restantes INTO estudante;
+    EXIT WHEN NOT FOUND;
+    RAISE NOTICE 'remove os nulls das colunas: ID=%, studentid=%, mother_edu=%, father_edu=%, grade=%, salary=%, prep_study=%',
+      estudante.cod_estudantes,
+      estudante.studentid,
+      estudante.mother_edu,
+      estudante.father_edu,
+      estudante.grade,
+      estudante.salary,
+      estudante.prep_study;
+  END LOOP;
+  CLOSE cur_restantes;
+END;
+$$;
 -- ----------------------------------------------------------------
