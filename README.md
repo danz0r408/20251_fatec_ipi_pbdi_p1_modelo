@@ -8,8 +8,8 @@
 
 | Nome completo | RA |
 |:--------------|:---|
+|         Brenho Cunha Michilizi      | 2041382411038    |
 |         Daniel Mussoi Marques       | 2041382411033    |
-|         Brenho Cunha Michilizi      | 2041382411038     |
 |                |     |
 |                |     |
 |                |     |
