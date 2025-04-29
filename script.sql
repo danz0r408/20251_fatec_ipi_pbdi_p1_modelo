@@ -32,8 +32,26 @@ $$;
 -- ----------------------------------------------------------------
 -- 3 Resultado em função dos estudos
 --escreva a sua solução aqui
-
-
+DO $$
+DECLARE
+  cur_dinamico REFCURSOR;
+  v_contagem INT;
+  v_estuda_sozinho INT := 1;
+BEGIN
+  OPEN cur_dinamico FOR EXECUTE
+    format('SELECT COUNT(*) 
+    FROM estudantes
+    WHERE grade >= 5 AND prep_study = $1')
+    USING v_estuda_sozinho;
+    FETCH cur_dinamico INTO v_contagem;
+    IF v_contagem = 0 THEN
+    RAISE NOTICE '%', -1;
+    ELSE
+    RAISE NOTICE '%', v_contagem;
+END IF;
+CLOSE cur_dinamico;
+END;
+$$;
 -- ----------------------------------------------------------------
 -- 4 Salário versus estudos
 --escreva a sua solução aqui
