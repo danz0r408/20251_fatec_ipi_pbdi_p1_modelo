@@ -24,7 +24,7 @@ BEGIN
     WHERE grade >= 5 AND (mother_edu = 6 OR father_edu = 6);
 
   FETCH cur_contagem INTO v_contagem;
-  RAISE NOTICE 'Número de alunos aprovados com pelo menos um pai PhD:', v_contagem;
+  RAISE NOTICE 'Número de alunos aprovados com pelo menos um pai PhD: %', v_contagem;
 
   CLOSE cur_contagem;
 END;
